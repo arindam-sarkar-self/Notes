@@ -44,7 +44,15 @@
 - git commit -m "message" => commits staged files with provided message
 
 
-- git remote add <remote-alias-name> Remote-Repo-URL => Sets up a connection with remote repo. Alias name origin used mostly
+- git remote add <remote-alias-name> Remote-Repo-URL => Sets up a connection & alias for a remote repo. Alias name origin used mostly
+
+- git remote -v => Lists all remote Connections
+
+- git push <remote-alias> <branch-name> => Push Provided branch changes to remote repo
+  git push -u <remote-alias> <branch-name> => Push Provided branch changes to remote repo & setup upstream tracking
+  git push -u <remote-alias> -all => Push All branch changes to remote repo & setup upstream tracking
+  *Upstream Tracking sets up link between specific local &remote branch simplifying pull & push commands
+
 
 
 @@Useful Shell Commands@@
