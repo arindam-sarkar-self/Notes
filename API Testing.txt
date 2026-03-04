@@ -1,0 +1,142 @@
+######################
+#API Testing Tutorial#
+######################
+
+
+###################################
+#Chapter 1: Introduction          #
+###################################
+- Communication - Information Exchange
+- Two Parties can communicate if they agree upon same set of rules / contract / agreement
+- Interface : In Computing, a Interface is a shared boundary between two entities that allows information exchange over specific entry points in a specified manner 
+- API (Application Programming Interface) - Interface (Set of Rules/Contract) between two Applications to communicate in a defined manner
+- Web API : Refers to API used by web applications to communicate over internet using web based protocol http
+- Postman is a Tool used for Designing and Testing APIs
+- Postman App comes in two flavours : Desktop & Web
+- Documentation is important to understand and use an API
+- Every API has a base URL (main address) & Endpoints (specific relative address appended to base url) for every functionality and data/resource
+- Postman Web app has same UI except extra option for selecting a agent (Cloud : Sends requests from Postman Server[Limited Attempts], Browser [Limited Capability] , Desktop Agent)
+- HTTP : Hyper Text Transfer Protocol | HTTPS : HTTP Secured that encrypts data being exchanged
+- Postman (Client) interacts with Server via API 
+- Postman sends a Request (URL,METHOD,HEADERS,BODY) and Receives a Response (STATUS CODE,HEADERS,BODY)
+
+
+#################################################
+#Chapter 2: API Basics & Postman Functionalities#
+#################################################
+- Collections : Folders in Workspace to organize and group Requests specific to an API or Use Cases of an API
+  *Can be shared with other collaborators via multiple options
+
+- Variables : Used to store configurations to make requests flexible/efficient. Scope of Variables : {Collection, Environment, Global}
+  * To see variables of a particular collection tap on the collection under workspaces
+  * We can share/un-share value of variables in a collection (useful in Team Collaboration/Monitors/Scheduled Runs)
+  * Variables can be referred inside JSON in body by using syntax : {{x}}
+  * Random Variables : "{{$XYZ....}}" feature provided by Postman to insert random values into our JSON to test our APIs
+
+- Responses received from API in body are displayed in "Pretty" form by Default to make it easy to understand. We have options to see "Raw" form. Also "Preview" mode tries to display the data in best possible form.
+
+#API Authentication: Unlike Websites which uses Username Password to provide access, APIs use access tokens to grant access to the resource.
+ .Bearer Token one of the standard ways , is set as parameter in Header (Its a Hidden Parameter in Header Section of the request)
+ .There are other standard authentications mechanisms used by APIs
+
+#Parameters (Ways to Exchange information):
+1. Query Parameters : Optional/Mandatory Key-value pairs appended after ? to a endpoint to modify the response
+  *API doesn't respond(ignore) to a query parameter not defined in documentation
+  *We can also directly specify query parameters in the URL stringed together with "&" character which acts as delimiter
+
+2. Path Variables : Specifies named values which are translated to form dynamic segment of the URL path while making the request. Specified with ":" symbol in API
+  *Post Substitution translates into a proper API URL with Endpoint
+  *They are always mandatory unlike Query Parameters
+
+3. Body : Content (generally JSON but may be any other type of data) we sent in a request (optional) and receive as a response  [If it is not mandatory it can be skipped]
+
+4. Headers: Key Value Pairs used to specify meta data for Request or in a response. 
+  *Postman Automatically generates many headers.
+  *We can add header under headers section and override existing if any.
+
+
+* Post Edit Feature of Postman under Request Section helps to copy Key-Value Pairs easily
+
+#########################################################
+#HTTP Request Methods/Verbs(General API Design Pattern):#
+#########################################################
+1. GET : Used to retrieve Data. It doesn't require body and parameters are in headers and URL
+
+2. POST : Used to create new Data. Generally has a request body and parameters are in body , headers & URL 
+
+3. PATCH : Used to update one or two properties of an existing data object.
+
+4. PUT : Used to replace an existing data object completely.
+
+5. DELETE : Used to delete and existing data object
+
+6. HEAD : Used to determine if Endpoint is valid/Up. (Lightweight & no body )
+
+
+
+**Note: 
+1.All Endpoints may not support all methods and you may receive status code 404 not found
+2.Always Consult APIs to be sure which method to use for CRUD operations
+
+#HTTP Status Code:
+
+
+
+
+###################################
+#Troubleshooting Tips             #
+###################################
+
+1.When Copy Pasting URLs, Unwanted Characters may get introduced causing errors
+2.Company DNS may block Postman desktop app. In that case take help from IT/Team or use Postman Web 
+3.If HTML Page is served in response instead of JSON, recheck characters in URL path
+4.To Create More space in Postman Window Click on Minimize Side Bar Button in Left Corner
+5.To View Request and Response Section side by side Click on Single Pane View in Right Corner
+
+
+###################################
+#Testing Tips                     #
+###################################
+1.Test with All Possible Permutation of Query Parameter Values (Numbers, Alphabets, Alphanumeric with special characters, boundary values)
+  Discuss abnormal findings with developers
+2.For Performance issues, APIs limits responses to certain specified limit by breaking data response up into pages (Known as pagination)
+3.API are build around complex Business Rules. Same needs to be understood properly to design and test APIs (Think for all end user flows)
+4.Read API Documentation carefully to understand API its usage and design Test Cases accordingly
+5.Best way to navigate through API is via Use Cases
+6.API generally creates unique ID for data objects to manage and avoid conflicts
+7.Always Hide your API Keys and Make sure if your Collection Visibility is Public then Keys Information should be hidden 
+
+###################################
+#JSON Tutorial                    #
+###################################
+- Used for Information exchange
+- Valid JSON format must be used for compatibility
+- An Object is represented by  Key : Value Pairs separated by commas "," and  delimited by curly braces "{}"
+- Allowed Data Types:
+  1.Number : IEEE 754 Double Pression FP
+  2.Boolean : true/false
+  3.String : Sequence of Unicode characters delimited by double quotes '""'
+  4.Array : collection of elements separated by commas "," and delimited by square brackets "[]"
+  5.Object: Key : Value Pairs separated by commas "," and  delimited by curly braces "{}"
+   .Keys are named strings
+   .Values can be any data type
+- Online JSON Linters can be used for JSON Validation
+
+
+
+###################################
+#JavaScript Tutorial              #
+###################################
+- Client Side Scripting Language developed in 1995 by Netscape to introduce client side dynamism in webpages
+- JavaScript was standardised and become known as ECMAScript
+- In, 2009 Node.js provided Runtime Environment to execute JavaScript at server side
+- In Postman we write our Scripts & Tests in JavaScript
+- Newman runs code and tests using Node.js in background
+- We Can write Pre-Request & Post-Response Scripts under scripts section of Request Section in Postman.
+- Statements in JS ends with a ;
+
+
+#Library:
+.Console.log("Text Message") => Prints Message to Console
+.Console.clear() => Clears Console
+

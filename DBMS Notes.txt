@@ -1,0 +1,21 @@
+###SQL
+-------------------
+- Comparison between char & varchar values doesn't yield consistent result
+- Interoperability between fixed point and floating point may cause issues.
+  So, SQL provides data types for fixed point and Floating point
+- Foreign Keys are allowed to be null until we use not null constraint
+- SQL allows duplicates
+- Understanding Schema is very important to write efficient queries
+- Nested queries should be used with care as they may not be computed efficiently in different RDBMS
+- SQL allows renaming of relations and attributes using as keyword
+- Default order is SQL depends on the execution Plan (No Guarantee)
+- SQL offers three valued logic (true, false, unknown) to handle null values
+  . "p is unknown" evaluates to true if predicate p evaluates to unknown
+  . Result of a where clause predicate is treated as false if it is evaluated to unknown
+- Except count(*) , rest all aggregate functions ignore null tuples for the operation
+#Data Types
+
+#DDL
+
+#DML
+

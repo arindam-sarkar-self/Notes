@@ -1,0 +1,53 @@
+#############
+#Git Basics #
+#############
+@@Introduction@@
+- GIT is worlds most popular distributed VCS(version control system)
+- VCS is used track/manage/revisit/revert/combine changes to a set of files and also supports to collaborate & share changes
+- GIT Repo acts as a workspace which tracks and manages changes to the files within the folder
+- Every git repo has its own history maintained through checkpoints
+
+@@Git Setup@@
+- To use Git on Local Machine we have to install Git
+- Once installed, we have Git Bash (CLI) & Git GUI to manage Git Repos
+- GIT have two config files:
+  1.Global for Global Configs (File Name :~/.gitconfig) [~ : Root Directory for User]
+	.Used to set Default Editor for Commit , User name, User Email
+  2.Second per repository for repo specific config (./.git/config)
+        .Used to set repo specific User name, User Email
+
+
+
+@@Git Commands@@
+- git config --global user.name "name" => Sets Global User Name
+- git config --global user.email "name@example.com" => Sets Global Email
+- git config user.name "name" => Sets Repo User Name
+- git config user.email "name@example.com" => Sets Repo Email
+- git init => Initialize a git repo
+  git init -b branch_name => Initialize a git repo with specific name for main branch
+
+
+@@Useful Shell Commands@@
+- cat ~/.gitconfig => prints content of provided file in the terminal window
+
+@@Useful Cmdline Commands@@
+- type .\.gitconfig => prints content of provided file in the terminal window
+
+################################################
+#Setting up SSH Key for GitHub or Cloud Repo   #
+################################################
+
+1.Generate SSH keys for each account
+# Generate keys (replace emails and filenames)
+  ssh-keygen -t ed25519 -C "personal@email.com" -f ~/.ssh/id_ed25519_personal
+
+2.Add SSH Key (Identity) to ssh-agent to manage keys
+  In Admin Privileged Power Shell start ssh-agent & add the key: 
+  Get-Service -Name ssh-agent | Set-Service -StartupType Manual
+  Start-Service ssh-agent
+  ssh-add c:/Users/YOU/.ssh/id_ed25519
+
+3.Add public keys to your GitHub accounts
+
+4.Set Git identity per project 
+git config user.email "your-email@example.com"
