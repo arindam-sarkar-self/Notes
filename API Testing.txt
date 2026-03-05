@@ -4,7 +4,7 @@
 
 
 ###################################
-#Chapter 1: Introduction          #
+#Introduction                     #
 ###################################
 - Communication - Information Exchange
 - Two Parties can communicate if they agree upon same set of rules / contract / agreement
@@ -22,7 +22,7 @@
 
 
 #################################################
-#Chapter 2: API Basics & Postman Functionalities#
+#API Basics & Postman Functionalities           #
 #################################################
 - Collections : Folders in Workspace to organize and group Requests specific to an API or Use Cases of an API
   *Can be shared with other collaborators via multiple options
@@ -55,7 +55,7 @@
   *We can add header under headers section and override existing if any.
 
 
-* Post Edit Feature of Postman under Request Section helps to copy Key-Value Pairs easily
+* Bulk Edit Feature of Postman under Request Section helps to copy Key-Value Pairs easily
 
 #########################################################
 #HTTP Request Methods/Verbs(General API Design Pattern):#
@@ -93,6 +93,26 @@
 4.To Create More space in Postman Window Click on Minimize Side Bar Button in Left Corner
 5.To View Request and Response Section side by side Click on Single Pane View in Right Corner
 
+###################################
+#Automation Testing with Postman  #
+###################################
+- Postman Allows to write Scripts "JavaScript Snippets" to add dynamic behaviour to Testing Workflows
+- In Request Section , Under Scripts Tab we have Option to add "Pre-Request" & "Post-Response" Scripts
+- We Can utilize snippets from snippets library available in Postman
+- In Response Section, Under Test Results Tab we can view the Test Results
+- JS Variables and Postman Variables are different things
+- In Postman we use callback functions as scripts are to be executed once response is received
+- For Callback functions in postman use anonymous than arrow
+- In API Testing we send and receive data in form of JSON. This data needs to be converted to/from JS Objects for Testing
+
+- pm.test(testName,specFunction);
+  testName : Name of Test (string) Ex : "Status code is 200"
+  specFunction : Callback function with an assertionEx : () => pm.response.to.have.status(200)
+
+- pm.response.text() : Return response as a text
+- pm.response.json() : Returns response as a JS object if response is a json
+- JSON.parse(pm.response.text()) => parses text to a JS Object
+
 
 ###################################
 #Testing Tips                     #
@@ -115,7 +135,7 @@
 - Allowed Data Types:
   1.Number : IEEE 754 Double Pression FP
   2.Boolean : true/false
-  3.String : Sequence of Unicode characters delimited by double quotes '""'
+  3.String : Sequence of Unicode characters delimited by double quotes only
   4.Array : collection of elements separated by commas "," and delimited by square brackets "[]"
   5.Object: Key : Value Pairs separated by commas "," and  delimited by curly braces "{}"
    .Keys are named strings
@@ -133,10 +153,108 @@
 - In Postman we write our Scripts & Tests in JavaScript
 - Newman runs code and tests using Node.js in background
 - We Can write Pre-Request & Post-Response Scripts under scripts section of Request Section in Postman.
-- Statements in JS ends with a ;
+- Statements in JS ends with a ; (Technically not required but recommended to avoid unexpected behaviours)
+
+@@Handling Data@@
+- Variable declaration using "var" keyword or "let" keyword (Modern Way)
+  var name = 'Jamie'
+- Constant are defined using keyword 'const'
+  const URL = "https://google.com"
+- Uninitialized Variables are assigned a special  value undefined same as null
+- Dynamically Typed Language
+- Variables are Case Sensitive
+- Variable Naming Rules:
+  1.
+  2.
+  3.
+  4.
+
+- Variable Naming Convention :
+  1.Lower CamelCase for Variables
+  2.Capital Snake Case for Constants
+  3.
+  4.For Boolean Variables use prefix "is" or "has"
+  4.Provide Descriptive Names to imply what it stands for
+
+- Primitive Data Types in JavaScript :
+  1.Number : IEEE 754 Double Pression FP
+  2.Boolean : true/false
+  3.String : Sequence of Unicode characters delimited by double quotes or single quotes
+  4.Undefined : To represent return value of Function with no return , uninitialized variables etc.
+
+- Non-Primitive Data Types :
+  1.Arrays : List of Values separated by , and delimited by []
+  2.Object : (Properties - Key:Value Pairs & Behaviour - methods)
+    . object = {Key : Value , ....}
+    . Key - Represents a property/behaviour name same rule as variable name. If we want names that don't comply put them in double quotes
+    . Value - Any Primitive/non-Primitive Data or Any permissible function in javascript
+    . this - reference to current object used to refer a property/method inside another method
+    . JS Objects and JSON Data are not same thing
 
 
-#Library:
-.Console.log("Text Message") => Prints Message to Console
-.Console.clear() => Clears Console
+- Operators :
+  + : Add Numbers , Concatenate String
+  - : Subtract Numbers
+  / : FP Division
+  * : Multiplication    
+  ++, -- : Increment, decrement  
+  . : To access/modify a property/method
+  []: Array, Index and access properties with special names mentioned in quotes
+
+
+- String Concatenation :
+  fullName = firstName+lastName
+  fullName = `${firstName} ${lastName}` => uses backtick known as template strings to create string interpolating value of expressions
+
+
+- Array Destructuring (Tuple Assignment Python)
+  [x,y] = [y,x]
+
+
+@@Syntax@@
+- Code Block : {...}
+  . Code Blocks define new block scope and defines a new namespace
+  . Scopes in JS : Global , Function , Block
+
+@@Functions@@
+- Encapsulate code for reuse and promotes modularity.
+
+ *Named Function
+ function name (param1,...) {
+ ...
+ return val;
+ }
+
+ *Anonymous Function
+ function (param1,...){
+ ...
+ return val;
+ }
+
+ *Arrow Function shorthand for anonymous functions
+  (param1,...) => {
+  ...
+  return val;
+  }
+  Arrow Functions can be written in one line (Like Python Lambda Function)
+  add = (a,b) => a+b;
+
+- Function Call : name(argument1,...)
+- Anonymous/Arrow Functions can be assigned to variables
+
+- Callback Functions : Functions with a another function as a argument
+  .Useful in asynchronous events
+
+@@Comments@@
+- Single Line: //
+- Multiline : /* ... */
+
+#Library Methods to use in Postman:
+.console.log("Text Message",...) => Prints to Console passed arguments with a newline
+.console.clear() => Clears Console
+.parseInt(x) => Returns Integer value of x or NaN
+.parseFloat(x) => Returns FP value of x or NaN
+.setTimeout(callback,time_ms) => Calls the callback after timeout
+.JSON.stringify(x) => Converts JS object x into JSON (serialize)
+.JSON.parse(x) => converts JSON data x to JSON Object (de-serialize)
 
