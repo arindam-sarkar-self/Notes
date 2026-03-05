@@ -1,7 +1,8 @@
-###SQL
--------------------
-- Comparison between char & varchar values doesn't yield consistent result
-- Interoperability between fixed point and floating point may cause issues.
+##################
+##      SQL     ##
+##################
+
+
   So, SQL provides data types for fixed point and Floating point
 - Foreign Keys are allowed to be null until we use not null constraint
 - SQL allows duplicates
@@ -13,9 +14,69 @@
   . "p is unknown" evaluates to true if predicate p evaluates to unknown
   . Result of a where clause predicate is treated as false if it is evaluated to unknown
 - Except count(*) , rest all aggregate functions ignore null tuples for the operation
+
+
+#History
+- IBM developed the first version of SQL and called it "Sequel"
+- Standardised by ISO and many versions have released over the years
+  *Support of standard by Commercial RDBMS vary widely and some add their own versions of a feature
+
+#Introduction
+- SQL [Structured Query Language]
+- SQL defines constructs for:
+  .DDL (Data Definition Language) : 
+   1.Defining/Modifying relation schemas
+   2.Deleting relations
+   3.Specify Integrity Constraints
+   4.Defining/Deleting Views
+   5.Specify Authorization Rights
+  .DML (Data Manipulation Language) : 
+   1.Query Databse
+   2.Insert/Modify/Delete Tuples
+
 #Data Types
+1. char(n) : Fixed Length Character String
+2. varchar(n) : Variable Length Character String . nvarchar(n) : Supports Multi-Lingual Strings
+3. smallint , int : An integer (Finite Subset of Machine Dependent Integers)
+4. numeric(p,d) : Fixed point Number with p digits with d digits to the right of decimal point [Used in Bussiness Processes]
+5. real, double precission : Machine Dependent Floating Point and Double Precission Floating Point
+6. float(n) : Floating point number with precision of n digits
+7. date : Calandar Date containing year (4-digit), month and day of the month '2018-04-03'
+8. time : Time of the day in hours, minutes, and seconds '09:30:00'
+9. timestamp : Date and Time '2018-04-25 10:29:01'
+10. interval : Diffrence between two dates or times or timestamp
+11. CLOB : Character Large Object (Character Data)
+12. BLOB : Binary Large Object (Binary Data)
+
+   *null is part of domain of each of the above types*SQL Standard supports defining User Defined Types/ Structured Data Types and Domain (Commercial Support/Syntax vary)
+   *Comparison between char & varchar values may not yield consistent results
+   *Interoperability between fixed point and floating point may cause issues
+
+
+#SQL Query Structure
 
 #DDL
+1. Creating Tables
+   create table r (A1 D1,A2 D2,...,An Dn,<integrity-constraint1>,...,<integrity-constraintn>);
+   Ai Di => Ai : Attribute Name,  Di : Type od Data with optional Constraints
+
+   Integrity Constraints (Contraints that maintain integrity of Data and Operations Violating is prevented by SQL):
+   . primary key(A,B,...,C) : Set of attributes forming Primary Keys. Attributes are unique and not null
+   . foriegn key(A,B,...,C) references s : Set of attributes that correspond to primary key of relation s. Attributes can be null
+   . not null : disallow null values
+
+2. Dropping Tables
+   drop table r;
+
+3. Adding/Deleting Attributes
+   alter table r add A D;
+   alter table r drop A;
+
+
 
 #DML
+1. Deleting tuples from table
+   delete from r;
+
+#Helpful functions
 
