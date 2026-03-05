@@ -19,7 +19,7 @@ A Repository to host Comprehensive notes on Miscellaneous Topics of my study.
 Notes to act as ready refernce for future reference.
 
 
-## Features
+## Topics
 *   **API Testing:** Basics of API Testing using Postman
 *   **DBMS:** Basic of SQL and Concepts related to Relational Model
 *   **Git & Github:** Quick Reference for useful Git Commands and Github Basics
