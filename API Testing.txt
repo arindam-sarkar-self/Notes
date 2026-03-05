@@ -105,13 +105,15 @@
 - For Callback functions in postman use anonymous than arrow
 - In API Testing we send and receive data in form of JSON. This data needs to be converted to/from JS Objects for Testing
 
-- pm.test(testName,specFunction);
+- pm.test(testName,specFunction) => to specify test assertions
   testName : Name of Test (string) Ex : "Status code is 200"
-  specFunction : Callback function with an assertionEx : () => pm.response.to.have.status(200)
+  specFunction : Callback function with test assertions. Ex : () => pm.response.to.have.status(200)
 
 - pm.response.text() : Return response as a text
 - pm.response.json() : Returns response as a JS object if response is a json
 - JSON.parse(pm.response.text()) => parses text to a JS Object
+- pm.expect(x) => Assert something about x. used with a BDD Assertion Library chai.js
+  .to.be.equal , to.include, to.have.property e.t.c
 
 
 ###################################
@@ -199,7 +201,7 @@
   * : Multiplication    
   ++, -- : Increment, decrement  
   . : To access/modify a property/method
-  []: Array, Index and access properties with special names mentioned in quotes
+  []: Array, Indexing Array, Index and access properties with special names mentioned in quotes
 
 
 - String Concatenation :
@@ -249,7 +251,7 @@
 - Single Line: //
 - Multiline : /* ... */
 
-#Library Methods to use in Postman:
+#Library Methods :
 .console.log("Text Message",...) => Prints to Console passed arguments with a newline
 .console.clear() => Clears Console
 .parseInt(x) => Returns Integer value of x or NaN
@@ -257,4 +259,11 @@
 .setTimeout(callback,time_ms) => Calls the callback after timeout
 .JSON.stringify(x) => Converts JS object x into JSON (serialize)
 .JSON.parse(x) => converts JSON data x to JSON Object (de-serialize)
+
+Array Methods/Properties
+. .push(x) => Adds x to array and returns size
+. .pop() => Removes last element and return it
+. .shift() => Removes first element and return it
+. .length => length of array
+. 
 
