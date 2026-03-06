@@ -26,7 +26,7 @@
 #################################################
 - Collections : Folders in Workspace to organize and group Requests specific to an API or Use Cases of an API
   *Can be shared with other collaborators via multiple options
-
+  *Folders : sub-Folders can be created inside Collections to further group/reuse requests (Happy Path , Negative Scenario)
 - Variables : Used to store configurations to make requests flexible/efficient. Scope of Variables : {Collection, Environment, Global}
   * To see variables of a particular collection tap on the collection under workspaces
   * We can share/un-share value of variables in a collection (useful in Team Collaboration/Monitors/Scheduled Runs)
@@ -96,15 +96,20 @@
 ###################################
 #Automation Testing with Postman  #
 ###################################
-- Postman Allows to write Scripts "JavaScript Snippets" to add dynamic behaviour to Testing Workflows
+- Postman Allows to write Scripts "JavaScript Snippets" to add dynamic behaviour to Workflows (Setting Variables for chaining ,testing)
 - In Request Section , Under Scripts Tab we have Option to add "Pre-Request" & "Post-Response" Scripts
 - We Can utilize snippets from snippets library available in Postman
 - In Response Section, Under Test Results Tab we can view the Test Results
 - JS Variables and Postman Variables are different things
+- Postman Variables can be used in Scripts and in request builder section tabs with syntax {{x}}
 - In Postman we use callback functions as scripts are to be executed once response is received
 - For Callback functions in postman use anonymous than arrow
 - In API Testing we send and receive data in form of JSON. This data needs to be converted to/from JS Objects for Testing
-
+- We can add Tests at Collection Level and Folder level to reuse them. All Test of Parent Level will be executed by default
+  so duplication of code is not required.
+- We Can used Doscumentation Option to document about test under Docs tab and about folders/collections under overview tab
+- Postman Variables helps to implement request chaining 
+ 
 - pm.test(testName,specFunction) => to specify test assertions
   testName : Name of Test (string) Ex : "Status code is 200"
   specFunction : Callback function with test assertions. Ex : () => pm.response.to.have.status(200)
@@ -113,8 +118,14 @@
 - pm.response.json() : Returns response as a JS object if response is a json
 - JSON.parse(pm.response.text()) => parses text to a JS Object
 - pm.expect(x) => Assert something about x. used with a BDD Assertion Library chai.js
-  .to.be.equal , to.include, to.have.property e.t.c
+  .to.be.equal , to.include, to.have.property , to.haveOwnProperty , to.be.true to.be.a e.t.c
 
+- pm.collectionVariables.set(key,value) =>Creates or updates Collection Variable (key : String , Value : Any Value)
+- pm.collectionVariables.get(key) =>reads Collection Variable (key : String )
+- pm.collectionVariables.unset(key) =>Deletes Collection Variable (key : String )
+- pm.collectionVariables.clear() =>Deletes All Collection Variables
+
+- When adding data to variable via script , Data Type is preserved. In Manual addition same is not preserved.
 
 ###################################
 #Testing Tips                     #
@@ -127,6 +138,18 @@
 5.Best way to navigate through API is via Use Cases
 6.API generally creates unique ID for data objects to manage and avoid conflicts
 7.Always Hide your API Keys and Make sure if your Collection Visibility is Public then Keys Information should be hidden 
+8.Fucnctional Testing : Testing whether API gives correct response for a request as per requirements/bussiness logic.
+  a. Status Code Check : Write Tests to Verify Status Codes (Write Assertions for status codes)
+  b. Response Body : Write Assertions for Response Body (Value,Type,Range)
+
+
+9.Happy Path Testing : Testing main business use case works (Testing Most Important Scenarios works)
+  Negative Testing : Testing how API behaves in exceptional (Testing for scenarios where API should Fail)
+  Boundary Testing : Testing API for boundary/invalid inputs
+
+10.TDD : Test Driven Development
+  . Business Requirements are First Translated into Tests and then Code is written to pass the tests.
+  . For new Requirement first tests are written, If Tests fail then only code is altered
 
 ###################################
 #JSON Tutorial                    #
@@ -202,7 +225,10 @@
   ++, -- : Increment, decrement  
   . : To access/modify a property/method
   []: Array, Indexing Array, Index and access properties with special names mentioned in quotes
+  >,<,>=,<=,== , === ,!=,!== : Comparison Operators returns Boolean Value [=== : Strictly Equal]
+  &&,||,! : Logical Operators
 
+- JS compares data specifically numbers loosely and convert string to numbers for expression evaluation (not strictly)
 
 - String Concatenation :
   fullName = firstName+lastName
@@ -218,13 +244,41 @@
   . Code Blocks define new block scope and defines a new namespace
   . Scopes in JS : Global , Function , Block
 
+@@Loops@@
+- for Loop : C Style Loop
+  . Syntax
+    for (initialization;condition;update)
+    {
+      ...
+    }
+
+
+@@Conditionals@@
+- if-else ladder : C Style Conditionals
+  . Syntax
+    if(Condition)
+    {
+      ...
+    }
+    else if(Condition)
+    {
+      ...
+    }
+    else  
+    {
+      ...
+    }
+
+
+*For Both for & if , if target statement is single line then we can omit {} 
+*Truthiness of expression is considered for evaluation in condition section
 @@Functions@@
 - Encapsulate code for reuse and promotes modularity.
 
  *Named Function
  function name (param1,...) {
  ...
- return val;
+  return val;
  }
 
  *Anonymous Function
@@ -244,7 +298,7 @@
 - Function Call : name(argument1,...)
 - Anonymous/Arrow Functions can be assigned to variables
 
-- Callback Functions : Functions with a another function as a argument
+- Callback Functions : Functions passed as arguments to other Functions
   .Useful in asynchronous events
 
 @@Comments@@
@@ -252,6 +306,7 @@
 - Multiline : /* ... */
 
 #Library Methods :
+.typeof x: keyword to print type of x
 .console.log("Text Message",...) => Prints to Console passed arguments with a newline
 .console.clear() => Clears Console
 .parseInt(x) => Returns Integer value of x or NaN
@@ -265,5 +320,12 @@ Array Methods/Properties
 . .pop() => Removes last element and return it
 . .shift() => Removes first element and return it
 . .length => length of array
-. 
+. .forEach(callback) => Runs callback function for each element in array. (Similar to map function in python)
+   callback(item,index,this) : item : array element , index : of array element, this: Called Array (all are optional)
+   Names of parameter can be anything but based on position their functionality is determined
+. find(callback) => returns item for which callback returns true else undefined (Similar to filter function in python)
+  callback(item,index,this) : item : array element , index : of array element, this : Called Array (all are optional) 
+. findIndex(callback) => returns index for which callback returns true else -1 
+
+
 
