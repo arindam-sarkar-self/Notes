@@ -43,6 +43,13 @@
 - git commit => Opens Default Text Editor for saving Commit Message and commits staged files
 - git commit -m "message" => commits staged files with provided message
 
+- git branch <branchname> => Creates new branch at current Head of active branch
+- git branch -m <newname> => Renames current branch
+- git branch -r => Lists remote branch references
+- git branch -d|-D branchname : deletes mentioned branchname
+
+- git checkout <branchname> => Switches to Mentioned branch
+
 
 - git remote add <remote-alias-name> Remote-Repo-URL => Sets up a connection & alias for a remote repo. Alias name origin used mostly
 
@@ -52,6 +59,7 @@
   git push -u <remote-alias> <branch-name> => Push Provided branch changes to remote repo & setup upstream tracking
   git push -u <remote-alias> -all => Push All branch changes to remote repo & setup upstream tracking
   *Upstream Tracking sets up link between specific local &remote branch simplifying pull & push commands
+  git push <remote_name> --delete <branch_name> => Deletes branches in remote repo
 
 
 
