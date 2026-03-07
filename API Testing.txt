@@ -120,7 +120,8 @@
 - pm.test(testName,specFunction) => to specify test assertions
   testName : Name of Test (string) Ex : "Status code is 200"
   specFunction : Callback function with test assertions. Ex : () => pm.response.to.have.status(200)
-
+- pm.response.code => return Numeric status code of response
+- pm.response.status => return String text of response
 - pm.response.text() : Return response as a text
 - pm.response.json() : Returns response as a JS object if response is a json
 - JSON.parse(pm.response.text()) => parses text to a JS Object
@@ -145,6 +146,7 @@
 - pm.globals.clear() =>Deletes All Global Variables
 
 - When adding data to variable via script , Data Type is preserved. In Manual addition same is not preserved.
+- To Write Resilent Scripts, move statments inside callbacks of associated test as they are self content and errors will not break the script. 
 
 ###################################
 #Testing Tips                     #
@@ -221,16 +223,16 @@
 - Dynamically Typed Language
 - Variables are Case Sensitive
 - Variable Naming Rules:
-  1.
-  2.
-  3.
-  4.
+  1.Allowed Characters : letters (A-Z, a-z), digits (0-9), underscores (_), and dollar signs ($)
+  2.Starting Character : Letter, Underscore or Dollar Sign
+  3.Case Sensitive
+  4.Reserved Words cannot be used
 
 - Variable Naming Convention :
-  1.Lower CamelCase for Variables
+  1.Lower CamelCase for Variables,functions
   2.Capital Snake Case for Constants
-  3.
-  4.For Boolean Variables use prefix "is" or "has"
+  3.For Boolean Variables use prefix "is" or "has"
+  4.For classes PascalCase
   4.Provide Descriptive Names to imply what it stands for
 
 - Primitive Data Types in JavaScript :
@@ -355,9 +357,15 @@ Array Methods/Properties
 . .forEach(callback) => Runs callback function for each element in array. (Similar to map function in python)
    callback(item,index,this) : item : array element , index : of array element, this: Called Array (all are optional)
    Names of parameter can be anything but based on position their functionality is determined
-. find(callback) => returns item for which callback returns true else undefined (Similar to filter function in python)
+. .find(callback) => returns item for which callback returns true else undefined (Similar to filter function in python)
   callback(item,index,this) : item : array element , index : of array element, this : Called Array (all are optional) 
-. findIndex(callback) => returns index for which callback returns true else -1 
+. .findIndex(callback) => returns index for which callback returns true else -1 
+
+. .map(callback) => returns array with containing return value of callback applied on every item
+   callback(item) : item : array element
+
+. .filter(callback) => returns array with containing elements for which callback returned true
+   callback(item) : item : array element
 
 
 
