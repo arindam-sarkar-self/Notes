@@ -25,13 +25,20 @@
 #API Basics & Postman Functionalities           #
 #################################################
 - Collections : Folders in Workspace to organize and group Requests specific to an API or Use Cases of an API
-  *Can be shared with other collaborators via multiple options
+  *Can be shared with other collaborators via multiple options (but environment needs to be shared seprately)
   *Folders : sub-Folders can be created inside Collections to further group/reuse requests (Happy Path , Negative Scenario)
-- Variables : Used to store configurations to make requests flexible/efficient. Scope of Variables : {Collection, Environment, Global}
+
+- Variables : Used to store configurations to make requests flexible/efficient. 
+  * Scope of Variables : { Local , Environment, Collection , Global} => Order of Precedence : Narrower to Broad
+  * Define Variable in right scope level (Think Thoroughly)
+  * Global Variables are accessible to every request in every collection and set globally (but seldom used)
+
   * To see variables of a particular collection tap on the collection under workspaces
   * We can share/un-share value of variables in a collection (useful in Team Collaboration/Monitors/Scheduled Runs)
   * Variables can be referred inside JSON in body by using syntax : {{x}}
   * Random Variables : "{{$XYZ....}}" feature provided by Postman to insert random values into our JSON to test our APIs
+
+- Test Environments can be shared as well but with limited options than collection
 
 - Responses received from API in body are displayed in "Pretty" form by Default to make it easy to understand. We have options to see "Raw" form. Also "Preview" mode tries to display the data in best possible form.
 
@@ -109,7 +116,7 @@
   so duplication of code is not required.
 - We Can used Doscumentation Option to document about test under Docs tab and about folders/collections under overview tab
 - Postman Variables helps to implement request chaining 
- 
+- We can mark variables "Secret/Senstive" to hide their values within Postman (No Actual Encryption)
 - pm.test(testName,specFunction) => to specify test assertions
   testName : Name of Test (string) Ex : "Status code is 200"
   specFunction : Callback function with test assertions. Ex : () => pm.response.to.have.status(200)
@@ -124,6 +131,18 @@
 - pm.collectionVariables.get(key) =>reads Collection Variable (key : String )
 - pm.collectionVariables.unset(key) =>Deletes Collection Variable (key : String )
 - pm.collectionVariables.clear() =>Deletes All Collection Variables
+- pm.environment.name : Resturn Environment name as a string [Useful for writing conditional for selecting Tests for Environment]
+- pm.environment.set(key,value) =>Creates or updates Environment Variable (key : String , Value : Any Value)
+- pm.environment.get(key) =>reads Environment Variable (key : String )
+- pm.environment.unset(key) =>Deletes Environment Variable (key : String )
+- pm.environment.clear() =>Deletes All Environment Variables
+  . If no Environment is configured it return undefined
+- pm.variables.set(key,value) =>Creates Local Variable with given name in current scope (key : String , Value : Any Value)
+- pm.variables.get(key) =>reads Variable with same name in current scope (key : String )
+- pm.globals.set(key,value) =>Creates Global Variable with given name (key : String , Value : Any Value)
+- pm.globals.get(key) =>reads Global Variable with same name (key : String )
+- pm.globals.unset(key) =>Deletes Global Variable with same name (key : String )
+- pm.globals.clear() =>Deletes All Global Variables
 
 - When adding data to variable via script , Data Type is preserved. In Manual addition same is not preserved.
 
@@ -150,6 +169,19 @@
 10.TDD : Test Driven Development
   . Business Requirements are First Translated into Tests and then Code is written to pass the tests.
   . For new Requirement first tests are written, If Tests fail then only code is altered
+
+11. Environment : Philosophy used to test Application before it is deployed to capture Failures 
+                  (Its nothing but a server URL pointing latest app with its own data)
+    . Production Environment: Server where Application is deployed for customers
+    . Staging Environment : Intermediate Environment to test changes before deploying to production
+    . Test Environment : Environment where changes are integrated with works of other developers
+    . Review Environment : Intermediate Environment to review changes
+    . Localhost/Development : Developer Machine used to test changes locally
+
+    *In Postman under Workspace we can configure environments & variables for our requests
+    *All Collection under same workspace will use the same environment configurations (So be careful)
+    *Data stored configured specific to an Environment will not affect other environment
+
 
 ###################################
 #JSON Tutorial                    #
