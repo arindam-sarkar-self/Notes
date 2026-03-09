@@ -120,6 +120,10 @@
 - pm.test(testName,specFunction) => to specify test assertions
   testName : Name of Test (string) Ex : "Status code is 200"
   specFunction : Callback function with test assertions. Ex : () => pm.response.to.have.status(200)
+- pm.response : return Response Object which contain (id,status,header,cookie,response time e.t.c) properties
+  .header & cookie are array objects
+- pm.response.header => returns array of headers
+- pm.response.cookie => returns array of cookies
 - pm.response.code => return Numeric status code of response
 - pm.response.status => return String text of response
 - pm.response.text() : Return response as a text
@@ -127,6 +131,16 @@
 - JSON.parse(pm.response.text()) => parses text to a JS Object
 - pm.expect(x) => Assert something about x. used with a BDD Assertion Library chai.js
   .to.be.equal , to.include, to.have.property , to.haveOwnProperty , to.be.true to.be.a e.t.c
+- pm.response.to.have.status(200) => Check is status code is 200
+  pm.expect(pm.response.code).to.be.oneOf([201,202])
+- pm.expect(pm.response.responseTime).to.be.below(9) => Checks Response time 
+- Assertions for Headers:
+ .pm.response.to.have.header('X-Cache') => Checks for header
+ .pm.expect(pm.response.headers.get('X-Cache')).to.eql('HIT') => Checks for header value
+
+- Assertions for cookies :
+ .pm.expect(pm.cookies.has('sessionId')).to.be.true => Check Cookies Exists
+ .pm.expect(pm.cookies.get('sessionId')).to.eql('ad3se3ss8sg7sg3'); => Check Cookies Value
 
 - pm.collectionVariables.set(key,value) =>Creates or updates Collection Variable (key : String , Value : Any Value)
 - pm.collectionVariables.get(key) =>reads Collection Variable (key : String )
@@ -147,6 +161,41 @@
 
 - When adding data to variable via script , Data Type is preserved. In Manual addition same is not preserved.
 - To Write Resilent Scripts, move statments inside callbacks of associated test as they are self content and errors will not break the script. 
+
+- Automation options:
+ 1. Collection Runner : Have Limits of Personal Plans
+  . Run manually (Control Itertions, delays,Settings for storing responses e.t.c)
+  . Schedule Runs over Postman Cloud (Can Choose frequencies)
+  . We can see the status of Runs by clicking on the collection and going to to Runs tab
+  . We should always setup up collection and environment variables properly to share required data so that it doesn't fail
+
+ 2. via CLI : 
+
+  a. Postman CLI :
+    . Configure from Runner inside Postman
+    . Once Run completed results reflected under Runs Tab
+  b. Newman :
+    . Opensource Tool (requires node.js)
+    . Install node.js & newman 
+    . we can run collection from local file or by using Postman API and provide details
+    . Share Collection => Copy URL with key
+    . In Command line enter "newman run URL" 
+    . Alternatively we can copy Collection ID , Environment ID and key and run below Command
+      newman run "https://api.getpostman.com/collections/collection-id?apikey=postman-api-key" --environment|-e "https://api.getpostman.com/environments/environment-id?apikey=postman-api-key"
+    . We can generate key to workspace by going to section : manage account => settings
+    . Completed Runs via newman doesnot reflect on Postman Account
+    . To run from file Go to your collection => more => export to export collection into a file
+    . Similar fashion we can export environment into file 
+    . We can generarate proper summarised & useful reports by installing newman reporters (useful in CI/CD pipelines) :
+      1.newman-reporter-htmlextra => generates report in html
+      2.junnit reporter =>generates report in XML
+
+    . Extra Advanced Newman Configurations [Refer Newman Documentation] :
+      1.--bail : To Stop Execution as soon as there is a errors
+      2.--env-var="key=value" : To set environment variable from CLI
+      3.--folder <foldername> : To run requests presnt only inside a specific folder
+      4.--insecure : Disable SSL verification (internal API & URLS)
+      5.--verbose : To print verbose logs of run
 
 ###################################
 #Testing Tips                     #
@@ -183,6 +232,15 @@
     *In Postman under Workspace we can configure environments & variables for our requests
     *All Collection under same workspace will use the same environment configurations (So be careful)
     *Data stored configured specific to an Environment will not affect other environment
+
+12. For Software Development we setup CI/CD Pipeline :
+    . Pipeline is analogous to Factory Assembly line where individual automated processes work in sync for production
+    . In Software Development : Processes (Build,Test,Deploy) are automated to form a Pipeline call CI/CD
+    . CI : Continuos Integration  , CD : Continuos Deployment
+    . Popular CI/CD Server: Jenkins , Github Actions , Gitlab CI, e.t.c
+    . For APIs we can write Tests via Postman
+    . CI/CD Tools integrate/communicate with other tools via CLI (So we need alternative to Postman APP which is meant for manual runs)
+
 
 
 ###################################
@@ -286,6 +344,19 @@
       ...
     }
 
+- for of : Python style of for loop based on iterators used for arrays and strings
+  .Syntax
+  for (variable of iterable)
+  {
+   ...
+  }
+
+- for in : Python style of for loop based on iterators used for collection of objects
+  .Syntax
+  for (variable in iterable)
+  {
+   ...
+  }
 
 @@Conditionals@@
 - if-else ladder : C Style Conditionals
@@ -366,6 +437,14 @@ Array Methods/Properties
 
 . .filter(callback) => returns array with containing elements for which callback returned true
    callback(item) : item : array element
+
+
+###########################
+#chai.js Assertion Library#
+###########################
+- Postman uses BDD style assertions from chai.js
+- Syntax : pm.expect(value).chainedlegetters(expectedvalue,"Assertion  Message")
+- Look up API for bdd style getters (no need to remember)
 
 
 

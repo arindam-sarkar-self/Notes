@@ -20,6 +20,9 @@
 - IBM developed the first version of SQL and called it "Sequel"
 - Standardised by ISO and many versions have released over the years
   *Support of standard by Commercial RDBMS vary widely and some add their own versions of a feature
+- Its is the most widely used Database Language
+- Its a Declarative(non-procedural) Language
+  *Many Commercial RDMS provides procedural extensions to SQL
 
 #Introduction
 - SQL [Structured Query Language]
@@ -29,10 +32,16 @@
    2.Deleting relations
    3.Specify Integrity Constraints
    4.Defining/Deleting Views
-   5.Specify Authorization Rights
+  
   .DML (Data Manipulation Language) : 
    1.Query Databse
    2.Insert/Modify/Delete Tuples
+  
+  .DCL (Data Control Language) :
+   1.Grant/Revoke access to Database Objects
+  
+  .TCL (Transaction Control Language)
+   1.Constructs to specify begining & ending of Transactions
 
 #Data Types
 1. char(n) : Fixed Length Character String
@@ -54,8 +63,22 @@
 
 
 #SQL Query Structure
+   SELECT column1, column2, ...
+   FROM table_name
+   WHERE condition
+   GROUP BY column_name(s)
+   HAVING group_condition
+   ORDER BY column_name(s) ASC|DESC;
 
-#DDL
+ - SELECT: Defines the specific columns to retrieve.
+ - FROM: Identifies the source table or view for the query.
+ - WHERE: Filters individual rows based on conditions.
+ - GROUP BY: Groups rows with identical data to perform aggregate calculations.
+ - HAVING: Filters group results, used with GROUP BY.
+ - ORDER BY: Sorts the final result set in ascending or descending order.
+ * Result of an SQL Query is a relation
+
+#DDL Clauses
 1. Creating Tables
    create table r (A1 D1,A2 D2,...,An Dn,<integrity-constraint1>,...,<integrity-constraintn>);
    Ai Di => Ai : Attribute Name,  Di : Type od Data with optional Constraints
@@ -74,7 +97,13 @@
 
 
 
-#DML
+#DML Clauses
+1. Selecting attributes/computed expressions
+   select [distinct|all] a,b,c... | * 
+   * : Select all attributes
+   distinct|all : eliminates/retains duplicate (duplication considered row per se)
+   a,b,c : attributes or arithmetic expression involving attributes
+
 1. Deleting tuples from table
    delete from r;
 
